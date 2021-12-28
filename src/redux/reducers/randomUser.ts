@@ -1,3 +1,4 @@
+import { DEFAULT_RESPONSE } from './../../constants/index';
 import { HYDRATE } from 'next-redux-wrapper';
 import { AxiosError, AxiosResponse } from 'axios';
 import { ActionType, createAsyncAction } from 'typesafe-actions';
@@ -40,14 +41,7 @@ export interface RandomUserStateType {
 export const initialState: RandomUserStateType = {
   getRandomUserLoading: false,
   getRandomUserDone: false,
-  getRandomUserResponse: {
-    data: {},
-    status: -1,
-    statusText: '',
-    headers: {},
-    config: {},
-    request: {},
-  },
+  getRandomUserResponse: DEFAULT_RESPONSE,
 };
 
 const RandomUserReducer = (state = initialState, action: RandomUserAction) => {

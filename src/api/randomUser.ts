@@ -86,10 +86,10 @@ export interface PictureType {
   thumbnail: string;
 }
 
-export const getRandomUser = ({ results }: GetRandomUserRequestType) => {
+export const getRandomUser = (params: GetRandomUserRequestType) => {
   return fetchApi({
     url: '/api/',
     method: 'GET',
-    data: results,
+    params,
   });
 };

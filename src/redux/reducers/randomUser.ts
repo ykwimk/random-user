@@ -46,7 +46,7 @@ export const initialState: RandomUserStateType = {
     statusText: '',
     headers: {},
     config: {},
-    request: '',
+    request: {},
   },
 };
 

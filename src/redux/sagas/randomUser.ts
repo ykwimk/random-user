@@ -3,7 +3,6 @@ import { getRandomUser } from '../../api/randomUser';
 import { getRandomUsersAction } from '../reducers/randomUser';
 
 function* randomUser(action: any) {
-  console.log('saga action: ', action);
   try {
     const { data } = yield call(getRandomUser, action.payload);
     yield put(getRandomUsersAction.success({ data }));

@@ -33,6 +33,7 @@ export interface ResultsType {
   id: IdType;
   picture: PictureType;
   nat: string;
+  isBookmark?: boolean;
 }
 
 export interface DobType {

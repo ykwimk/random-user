@@ -4,12 +4,12 @@ import Search from '../Search';
 import List from '../List';
 
 const Home = () => {
-  const { loading, done, results } = useHome();
+  const { loading, done, results, onClickListItem } = useHome();
 
   return (
     <HomeWrapper>
       <Search />
-      <List results={results} />
+      <List results={results} onClickListItem={onClickListItem} />
     </HomeWrapper>
   );
 };

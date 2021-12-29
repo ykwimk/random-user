@@ -23,13 +23,22 @@ export const ListWrapper = styled('div')`
     margin-right: 15px;
   }
   .content {
-    .full-name {
-      font-weight: bold;
-      margin-bottom: 4px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    .information {
+      .full-name {
+        font-weight: bold;
+        margin-bottom: 4px;
+      }
+      .cell,
+      .email {
+        font-size: 13px;
+      }
     }
-    .cell,
-    .email {
-      font-size: 13px;
+    .icon {
+      font-size: 21px;
     }
   }
 `;

@@ -1,3 +1,4 @@
+import { BsBookmarkPlus } from 'react-icons/bs';
 import { ResultsType } from '../../api/randomUser';
 import { ListWrapper } from './List.style';
 
@@ -20,9 +21,14 @@ const List = ({ results }: ListPropsType) => {
                     <img src={picture.thumbnail} alt={fullName} />
                   </div>
                   <div className="content">
-                    <div className="full-name">{fullName}</div>
-                    <div className="cell">{cell}</div>
-                    <div className="email">{email}</div>
+                    <div className="information">
+                      <div className="full-name">{fullName}</div>
+                      <div className="cell">{cell}</div>
+                      <div className="email">{email}</div>
+                    </div>
+                    <div className="icon">
+                      <BsBookmarkPlus />
+                    </div>
                   </div>
                 </div>
               </li>

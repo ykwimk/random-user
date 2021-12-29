@@ -1,4 +1,4 @@
-import useHeader from '../hooks/useHeader';
+import useHeader from '../../hooks/useHeader';
 import { HeaderWrapper } from './Header.style';
 
 const Header = () => {

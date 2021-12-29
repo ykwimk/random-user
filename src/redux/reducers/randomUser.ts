@@ -1,7 +1,7 @@
-import { DEFAULT_RESPONSE } from './../../constants/index';
 import { HYDRATE } from 'next-redux-wrapper';
 import { AxiosError, AxiosResponse } from 'axios';
 import { ActionType, createAsyncAction } from 'typesafe-actions';
+import { DEFAULT_RESPONSE } from './../../constants/index';
 import {
   GetRandomUserRequestType,
   GetRandomUserResponseType,
@@ -49,13 +49,29 @@ const RandomUserReducer = (state = initialState, action: RandomUserAction) => {
     case HYDRATE:
       return { ...state, ...action.payload };
     case actionTypes.GET_RANDOM_USER_REQUEST:
-      return { ...state };
+      return {
+        getRandomUserLoading: true,
+        getRandomUserDone: false,
+        getRandomUserResponse: DEFAULT_RESPONSE,
+      };
     case actionTypes.GET_RANDOM_USER_SUCCESS:
-      return { ...state };
+      return {
+        getRandomUserLoading: false,
+        getRandomUserDone: true,
+        getRandomUserResponse: { ...action.payload },
+      };
     case actionTypes.GET_RANDOM_USER_FAILURE:
-      return { ...state };
+      return {
+        getRandomUserLoading: false,
+        getRandomUserDone: false,
+        getRandomUserResponse: { ...action.payload },
+      };
     case actionTypes.GET_RANDOM_USER_CANCEL:
-      return { ...state };
+      return {
+        getRandomUserLoading: false,
+        getRandomUserDone: false,
+        getRandomUserResponse: DEFAULT_RESPONSE,
+      };
     default:
       return state;
   }

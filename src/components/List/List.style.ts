@@ -2,8 +2,8 @@ import styled from '@emotion/styled';
 
 export const ListWrapper = styled('div')`
   li {
-    margin-bottom: 20px;
-    padding: 13px;
+    margin-bottom: 10px;
+    padding: 15px;
     cursor: pointer;
     &:hover {
       background: #f6f6f6;

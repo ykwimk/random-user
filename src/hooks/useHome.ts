@@ -15,7 +15,7 @@ export default function useHome() {
       shallowEqual,
     );
 
-  const onClickListItem = (phone: string, isBookmark: boolean) => {
+  const onClickListItem = (phone: string, isBookmark?: boolean) => {
     if (isBookmark) {
       dispatch(deleteRandomUserBookmarkAction(phone));
       return;

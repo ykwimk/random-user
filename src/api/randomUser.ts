@@ -2,6 +2,7 @@ import { fetchApi } from '.';
 
 export interface GetRandomUserRequestType {
   results?: number;
+  page?: number;
 }
 
 export interface GetRandomUserResponseType {

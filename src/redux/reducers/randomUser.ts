@@ -68,21 +68,21 @@ const RandomUserReducer = (state = initialState, action: any) => {
         getRandomUserLoading: true,
         getRandomUserDone: false,
         getRandomUserResponse: DEFAULT_RESPONSE,
-        bookmarkList: [],
+        bookmarkList: state.bookmarkList || [],
       };
     case actionTypes.GET_RANDOM_USER_SUCCESS:
       return {
         getRandomUserLoading: false,
         getRandomUserDone: true,
         getRandomUserResponse: { ...action.payload },
-        bookmarkList: [],
+        bookmarkList: state.bookmarkList || [],
       };
     case actionTypes.GET_RANDOM_USER_FAILURE:
       return {
         getRandomUserLoading: false,
         getRandomUserDone: false,
         getRandomUserResponse: { ...action.payload },
-        bookmarkList: [],
+        bookmarkList: state.bookmarkList || [],
       };
     case actionTypes.GET_RANDOM_USER_CANCEL:
       return {

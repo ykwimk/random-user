@@ -9,7 +9,7 @@ const Home = () => {
   return (
     <HomeWrapper>
       <Search />
-      <List results={results} onClickListItem={onClickListItem} />
+      <List list={results} onClickListItem={onClickListItem} />
     </HomeWrapper>
   );
 };

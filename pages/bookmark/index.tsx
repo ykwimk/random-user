@@ -1,5 +1,7 @@
+import Bookmark from '../../src/components/Bookmark';
+
 const BookMarkPage = () => {
-  return <div>bookmaark</div>;
+  return <Bookmark />;
 };
 
 export default BookMarkPage;

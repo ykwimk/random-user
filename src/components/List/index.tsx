@@ -3,17 +3,17 @@ import { ResultsType } from '../../api/randomUser';
 import { ListWrapper } from './List.style';
 
 interface ListPropsType {
-  results: ResultsType[];
+  list: ResultsType[];
   onClickListItem: (phone: string, isBookmark?: boolean) => void;
 }
 
-const List = ({ results, onClickListItem }: ListPropsType) => {
+const List = ({ list, onClickListItem }: ListPropsType) => {
   return (
     <ListWrapper>
       <ul>
-        {results &&
-          results.map((result) => {
-            const { cell, name, phone, email, picture, isBookmark } = result;
+        {list &&
+          list.map((item) => {
+            const { cell, name, phone, email, picture, isBookmark } = item;
             const fullName = `${name.title}. ${name.first} ${name.last}`;
             return (
               <li key={phone}>

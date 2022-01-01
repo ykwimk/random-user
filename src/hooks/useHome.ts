@@ -28,11 +28,11 @@ export default function useHome() {
 
   const loadMore = useCallback(() => {
     console.log('loadmore');
-    dispatch(getRandomUsersAction.request({ results: 10, page }));
+    // dispatch(getRandomUsersAction.request({ results: 10, page: page + 1 }));
   }, [page, dispatch]);
 
   useEffect(() => {
-    dispatch(getRandomUsersAction.request({ results: 10, page: 1 }));
+    dispatch(getRandomUsersAction.request({ results: 10, page }));
   }, []);
 
   useEffect(() => {
@@ -43,6 +43,7 @@ export default function useHome() {
     const observer = new IntersectionObserver(([entries]) => {
       if (entries.isIntersecting) {
         console.log('bottom');
+        // loadMore();
       }
     }, options);
 

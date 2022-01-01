@@ -26,7 +26,7 @@ export const getRandomUsersAction = createAsyncAction(
   GetRandomUserRequestType,
   GetRandomUserResponseType,
   GetRandomUserResponseType,
-  AxiosError
+  any
 >();
 
 export const addRandomUserBookmarkAction = createAction(
@@ -65,24 +65,24 @@ const RandomUserReducer = (state = initialState, action: any) => {
       return { ...state, ...action.payload };
     case actionTypes.GET_RANDOM_USER_REQUEST:
       return {
+        ...state,
         getRandomUserLoading: true,
         getRandomUserDone: false,
         getRandomUserResponse: state.getRandomUserResponse || DEFAULT_RESPONSE,
-        bookmarkList: state.bookmarkList || [],
       };
     case actionTypes.GET_RANDOM_USER_SUCCESS:
       return {
+        ...state,
         getRandomUserLoading: false,
         getRandomUserDone: true,
         getRandomUserResponse: { ...action.payload },
-        bookmarkList: state.bookmarkList || [],
       };
     case actionTypes.GET_RANDOM_USER_FAILURE:
       return {
+        ...state,
         getRandomUserLoading: false,
         getRandomUserDone: false,
         getRandomUserResponse: { ...action.payload },
-        bookmarkList: state.bookmarkList || [],
       };
     case actionTypes.GET_RANDOM_USER_CANCEL:
       return {

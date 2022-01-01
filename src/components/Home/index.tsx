@@ -1,10 +1,10 @@
-import { HomeWrapper } from './Home.style';
 import useHome from '../../hooks/useHome';
+import { HomeWrapper } from './Home.style';
 import Search from '../Search';
 import List from '../List';
 
 const Home = () => {
-  const { sentinel, loading, done, results, onClickListItem } = useHome();
+  const { sentinel, loading, results, onClickListItem } = useHome();
 
   return (
     <HomeWrapper>

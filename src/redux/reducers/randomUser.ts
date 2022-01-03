@@ -68,14 +68,26 @@ const RandomUserReducer = (state = initialState, action: any) => {
         ...state,
         getRandomUserLoading: true,
         getRandomUserDone: false,
-        getRandomUserResponse: state.getRandomUserResponse || DEFAULT_RESPONSE,
+        getRandomUserResponse:
+          { ...state.getRandomUserResponse } || DEFAULT_RESPONSE,
       };
     case actionTypes.GET_RANDOM_USER_SUCCESS:
       return {
         ...state,
         getRandomUserLoading: false,
         getRandomUserDone: true,
-        getRandomUserResponse: { ...action.payload },
+        getRandomUserResponse: {
+          ...state.getRandomUserResponse,
+          data: {
+            ...action.payload.data,
+            results: state.getRandomUserResponse.data.results
+              ? [
+                  ...state.getRandomUserResponse.data.results,
+                  ...action.payload.data.results,
+                ]
+              : [...action.payload.data.results],
+          },
+        },
       };
     case actionTypes.GET_RANDOM_USER_FAILURE:
       return {

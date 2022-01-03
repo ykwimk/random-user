@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import {
   addRandomUserBookmarkAction,
@@ -10,11 +10,14 @@ import {
 export default function useHome() {
   const sentinel = useRef<HTMLDivElement>();
   const dispatch = useDispatch();
-  const { getRandomUserLoading, getRandomUserDone, getRandomUserResponse } =
-    useSelector(
-      ({ randomUser }: { randomUser: RandomUserStateType }) => randomUser,
-      shallowEqual,
-    );
+  const {
+    getRandomUserLoading: isLoading,
+    getRandomUserDone: done,
+    getRandomUserResponse: response,
+  } = useSelector(
+    ({ randomUser }: { randomUser: RandomUserStateType }) => randomUser,
+    shallowEqual,
+  );
 
   const [page, setPage] = useState<number>(1);
 
@@ -26,14 +29,9 @@ export default function useHome() {
     dispatch(addRandomUserBookmarkAction(phone));
   };
 
-  const loadMore = useCallback(() => {
-    console.log('loadmore');
-    // dispatch(getRandomUsersAction.request({ results: 10, page: page + 1 }));
-  }, [page, dispatch]);
-
   useEffect(() => {
     dispatch(getRandomUsersAction.request({ results: 10, page }));
-  }, []);
+  }, [dispatch, page]);
 
   useEffect(() => {
     const options = {
@@ -41,23 +39,22 @@ export default function useHome() {
       threshold: 1.0,
     };
     const observer = new IntersectionObserver(([entries]) => {
-      if (entries.isIntersecting) {
-        console.log('bottom');
-        // loadMore();
+      if (!isLoading && entries.isIntersecting) {
+        setPage(page + 1);
       }
     }, options);
 
-    if (sentinel.current) {
+    if (sentinel.current && response.data.results) {
       observer.observe(sentinel.current);
     }
     return () => observer && observer.disconnect();
-  }, [sentinel, loadMore]);
+  }, [sentinel, page, isLoading, response.data.results]);
 
   return {
     sentinel,
-    loading: getRandomUserLoading,
-    done: getRandomUserDone,
-    results: getRandomUserResponse.data.results,
+    isLoading,
+    done,
+    results: response.data.results,
     onClickListItem,
   };
 }

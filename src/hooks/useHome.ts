@@ -50,6 +50,12 @@ export default function useHome() {
     return () => observer && observer.disconnect();
   }, [sentinel, page, isLoading, response.data.results]);
 
+  useEffect(() => {
+    return () => {
+      dispatch(getRandomUsersAction.cancel({}));
+    };
+  }, [dispatch]);
+
   return {
     sentinel,
     isLoading,

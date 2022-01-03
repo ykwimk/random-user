@@ -1,4 +1,5 @@
 import { BsBookmarkPlus, BsBookmarkPlusFill } from 'react-icons/bs';
+import { nanoid } from 'nanoid';
 import { ResultsType } from '../../api/randomUser';
 import { ListWrapper } from './List.style';
 
@@ -15,8 +16,9 @@ const List = ({ list, onClickListItem }: ListPropsType) => {
           list.map((item) => {
             const { cell, name, phone, email, picture, isBookmark } = item;
             const fullName = `${name.title}. ${name.first} ${name.last}`;
+            const id = nanoid();
             return (
-              <li key={phone}>
+              <li key={id}>
                 <div
                   className="list-item"
                   onClick={() => onClickListItem(phone, isBookmark)}

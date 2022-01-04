@@ -1,5 +1,5 @@
 import { HYDRATE } from 'next-redux-wrapper';
-import { AxiosError, AxiosResponse } from 'axios';
+import { AxiosResponse } from 'axios';
 import { ActionType, createAction, createAsyncAction } from 'typesafe-actions';
 import { DEFAULT_RESPONSE } from './../../constants/index';
 import {
@@ -15,6 +15,7 @@ export const actionTypes = {
   GET_RANDOM_USER_CANCEL: 'randomUser/GET_RANDOM_USER_CANCEL',
   ADD_RANDOM_USER_BOOKMARK: 'randomUser/ADD_RANDOM_USER_BOOKMARK',
   DELETE_RANDOM_USER_BOOKMARK: 'randomUser/DELETE_RANDOM_USER_BOOKMARK',
+  SEARCH_RANDOM_USER: 'randomUser/SEARCH_RANDOM_USER',
 };
 
 export const getRandomUsersAction = createAsyncAction(
@@ -37,10 +38,15 @@ export const deleteRandomUserBookmarkAction = createAction(
   actionTypes.DELETE_RANDOM_USER_BOOKMARK,
 )<string>();
 
+export const searchRandomUserAction = createAction(
+  actionTypes.SEARCH_RANDOM_USER,
+)<string>();
+
 export const actions = {
   getRandomUsersAction,
   addRandomUserBookmarkAction,
   deleteRandomUserBookmarkAction,
+  searchRandomUserAction,
 };
 
 export type RandomUserAction = ActionType<typeof actions>;
@@ -50,6 +56,7 @@ export interface RandomUserStateType {
   getRandomUserDone: boolean;
   getRandomUserResponse: AxiosResponse;
   bookmarkList: ResultsType[];
+  searchList: ResultsType[];
 }
 
 export const initialState: RandomUserStateType = {
@@ -57,6 +64,7 @@ export const initialState: RandomUserStateType = {
   getRandomUserDone: false,
   getRandomUserResponse: DEFAULT_RESPONSE,
   bookmarkList: [],
+  searchList: [],
 };
 
 const RandomUserReducer = (state = initialState, action: any) => {
@@ -98,10 +106,10 @@ const RandomUserReducer = (state = initialState, action: any) => {
       };
     case actionTypes.GET_RANDOM_USER_CANCEL:
       return {
+        ...state,
         getRandomUserLoading: false,
         getRandomUserDone: false,
         getRandomUserResponse: DEFAULT_RESPONSE,
-        bookmarkList: [],
       };
     case actionTypes.ADD_RANDOM_USER_BOOKMARK: {
       const { results } = state.getRandomUserResponse.data;
@@ -147,6 +155,18 @@ const RandomUserReducer = (state = initialState, action: any) => {
         },
         bookmarkList: filteredBookmarkList,
       };
+    }
+    case actionTypes.SEARCH_RANDOM_USER: {
+      const { results } = state.getRandomUserResponse.data;
+      const filteredList = results.filter((o: ResultsType) => {
+        const { name } = o;
+        const fullName = `${name.title}. ${name.first} ${name.last}`;
+        return fullName
+          .toLocaleLowerCase()
+          .trim()
+          .includes(action.payload.toLocaleLowerCase().trim());
+      });
+      return { ...state, searchList: action.payload ? [...filteredList] : [] };
     }
     default:
       return state;

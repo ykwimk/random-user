@@ -5,12 +5,26 @@ import List from '../List';
 import Loading from '../Loading';
 
 const Home = () => {
-  const { sentinel, isLoading, results, onClickListItem } = useHome();
+  const {
+    sentinel,
+    isLoading,
+    results,
+    searchList,
+    onChangeSearchInput,
+    onClickSearchButton,
+    onClickListItem,
+  } = useHome();
 
   return (
     <HomeWrapper>
-      <Search />
-      <List list={results} onClickListItem={onClickListItem} />
+      <Search
+        onChangeSearchInput={onChangeSearchInput}
+        onClickSearchButton={onClickSearchButton}
+      />
+      <List
+        list={searchList.length > 0 ? searchList : results}
+        onClickListItem={onClickListItem}
+      />
       <div ref={sentinel as any}>{isLoading && <Loading />}</div>
     </HomeWrapper>
   );

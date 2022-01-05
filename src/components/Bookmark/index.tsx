@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import useBookmark from '../../hooks/useBookmark';
 import List from '../List';
 import { BookmarkWrapper } from './Bookmark.style';
@@ -7,7 +8,11 @@ const Bookmark = () => {
 
   return (
     <BookmarkWrapper>
-      <List list={bookmarkList} onClickListItem={onClickListItem} />
+      {!_.isEmpty(bookmarkList) ? (
+        <List list={bookmarkList} onClickListItem={onClickListItem} />
+      ) : (
+        <div>empty list!</div>
+      )}
     </BookmarkWrapper>
   );
 };

@@ -116,6 +116,8 @@ const RandomUserReducer = (state = initialState, action: any) => {
       const findResult = results.find(
         (o: ResultsType) => o.phone === action.payload,
       );
+      findResult.isBookmark = true;
+
       const resultIncludesBookmark = results.map((item: ResultsType) => {
         if (item.phone === action.payload) {
           return { ...item, isBookmark: true };

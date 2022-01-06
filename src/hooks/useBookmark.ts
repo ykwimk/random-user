@@ -7,8 +7,8 @@ export default function useBookmark() {
     shallowEqual,
   );
 
-  const onClickListItem = (phone: string, isBookmark?: boolean) => {
-    console.log(phone, isBookmark);
+  const onClickListItem = (phone: string) => {
+    console.log('onClickListItem', phone);
   };
 
   return {

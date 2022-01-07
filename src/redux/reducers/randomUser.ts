@@ -1,5 +1,6 @@
 import { HYDRATE } from 'next-redux-wrapper';
 import { AxiosResponse } from 'axios';
+import _ from 'lodash';
 import { ActionType, createAction, createAsyncAction } from 'typesafe-actions';
 import { DEFAULT_RESPONSE } from './../../constants/index';
 import {
@@ -137,22 +138,28 @@ const RandomUserReducer = (state = initialState, action: any) => {
     }
     case actionTypes.DELETE_RANDOM_USER_BOOKMARK: {
       const { getRandomUserResponse, bookmarkList } = state;
-      const { results } = getRandomUserResponse.data;
-      const resultIncludesBookmark = results.map((item: ResultsType) => {
-        if (item.phone === action.payload) {
-          return { ...item, isBookmark: false };
-        }
-        return item;
-      });
+      let asResults: ResultsType[] = [];
+
+      if (!_.isEmpty(getRandomUserResponse.data)) {
+        const { results } = getRandomUserResponse.data;
+        asResults = results.map((item: ResultsType) => {
+          if (item.phone === action.payload) {
+            return { ...item, isBookmark: false };
+          }
+          return item;
+        });
+      }
+
       const filteredBookmarkList = bookmarkList.filter(
         (o: ResultsType) => o.phone !== action.payload,
       );
+
       return {
         ...state,
         getRandomUserResponse: {
           data: {
             ...state.getRandomUserResponse.data,
-            results: resultIncludesBookmark,
+            results: asResults || [...state.getRandomUserResponse.data.results],
           },
         },
         bookmarkList: filteredBookmarkList,

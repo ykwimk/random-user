@@ -1,14 +1,18 @@
-import { shallowEqual, useSelector } from 'react-redux';
-import { RandomUserStateType } from './../redux/reducers/randomUser';
+import { shallowEqual, useDispatch, useSelector } from 'react-redux';
+import {
+  deleteRandomUserBookmarkAction,
+  RandomUserStateType,
+} from './../redux/reducers/randomUser';
 
 export default function useBookmark() {
+  const dispatch = useDispatch();
   const { bookmarkList } = useSelector(
     ({ randomUser }: { randomUser: RandomUserStateType }) => randomUser,
     shallowEqual,
   );
 
   const onClickListItem = (phone: string) => {
-    console.log('onClickListItem', phone);
+    dispatch(deleteRandomUserBookmarkAction(phone));
   };
 
   return {

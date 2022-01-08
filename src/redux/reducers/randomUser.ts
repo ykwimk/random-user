@@ -111,6 +111,7 @@ const RandomUserReducer = (state = initialState, action: any) => {
         getRandomUserLoading: false,
         getRandomUserDone: false,
         getRandomUserResponse: DEFAULT_RESPONSE,
+        searchList: [],
       };
     case actionTypes.ADD_RANDOM_USER_BOOKMARK: {
       const { results } = state.getRandomUserResponse.data;

@@ -22,12 +22,12 @@ export const ModalWrapper = styled('div')`
     background: #fff;
     border-radius: 14px;
     z-index: 10;
-    padding: 15px;
+    padding: 25px;
   }
   .modal-header {
     display: flex;
     justify-content: flex-end;
-    padding-bottom: 15px;
+    padding-bottom: 25px;
   }
   .modal-close-button {
     width: 26px;

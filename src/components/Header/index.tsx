@@ -3,6 +3,7 @@ import { FaList } from 'react-icons/fa';
 import { BiArrowBack } from 'react-icons/bi';
 import { HeaderWrapper } from './Header.style';
 import Modal from '../Modal';
+import Login from '../Login';
 
 const Header = () => {
   const router = useRouter();
@@ -39,7 +40,7 @@ const Header = () => {
         </button>
       </div>
       <Modal onClickClose={onClickClose}>
-        <div>로그인 모달</div>
+        <Login />
       </Modal>
     </HeaderWrapper>
   );

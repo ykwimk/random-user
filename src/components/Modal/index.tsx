@@ -26,6 +26,13 @@ const Modal = ({ children, onClickClose }: ModalPropsType) => {
     };
   }, [onClickOutside]);
 
+  useEffect(() => {
+    window.document.body.style.overflow = 'hidden';
+    return () => {
+      window.document.body.style.overflow = '';
+    };
+  }, []);
+
   return (
     <ModalWrapper>
       <div ref={ref} className="modal-container">

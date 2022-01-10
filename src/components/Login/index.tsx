@@ -1,6 +1,9 @@
+import useLogin from '../../hooks/useLogin';
 import { LoginWrapper } from './Login.style';
 
 const Login = () => {
+  useLogin();
+
   return (
     <LoginWrapper>
       <div className="input-box">

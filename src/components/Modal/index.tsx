@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback, useEffect, useRef } from 'react';
 import { AiOutlineClose } from 'react-icons/ai';
 import { ModalWrapper } from './Modal.style';
 
@@ -8,9 +8,27 @@ interface ModalPropsType {
 }
 
 const Modal = ({ children, onClickClose }: ModalPropsType) => {
+  const ref = useRef<HTMLDivElement>(null);
+
+  const onClickOutside = useCallback(
+    (e: { target: any; currentTarget: any }) => {
+      if (ref.current && !ref.current?.contains(e.target)) {
+        onClickClose();
+      }
+    },
+    [onClickClose],
+  );
+
+  useEffect(() => {
+    document.addEventListener('click', onClickOutside);
+    return () => {
+      document.removeEventListener('click', onClickOutside);
+    };
+  }, [onClickOutside]);
+
   return (
     <ModalWrapper>
-      <div className="modal-container">
+      <div ref={ref} className="modal-container">
         <div className="modal-header">
           <button
             type="button"

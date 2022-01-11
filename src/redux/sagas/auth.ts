@@ -2,7 +2,7 @@ import { call, put, takeLatest } from 'redux-saga/effects';
 import { login } from '../../api/auth';
 import { loginAction } from '../reducers/auth';
 
-function* loginFunction(action: any) {
+function* loginSaga(action: any) {
   try {
     const { data } = yield call(login, action.payload);
     yield put(loginAction.success({ data }));
@@ -12,5 +12,5 @@ function* loginFunction(action: any) {
 }
 
 export default function* authSaga() {
-  yield takeLatest(loginAction.request, loginFunction);
+  yield takeLatest(loginAction.request, loginSaga);
 }

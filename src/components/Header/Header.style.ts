@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { NextRouter } from 'next/dist/client/router';
+import { NextRouter } from 'next/router';
 
 export const HeaderWrapper = styled.div<{ router: NextRouter }>`
   padding: 30px 0;

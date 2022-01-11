@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useRouter } from 'next/dist/client/router';
+import { useRouter } from 'next/router';
 import { FaList } from 'react-icons/fa';
 import { BiArrowBack } from 'react-icons/bi';
 import { HeaderWrapper } from './Header.style';

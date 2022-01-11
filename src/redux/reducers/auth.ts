@@ -42,23 +42,30 @@ const AuthReducer = (state = initialState, action: any) => {
       return { ...state, ...action.payload };
     case actionTypes.LOGIN_REQUEST: {
       return {
-        ...state,
+        loginLoading: true,
+        loginDone: false,
+        loginResponse: DEFAULT_RESPONSE,
       };
     }
     case actionTypes.LOGIN_SUCCESS: {
       return {
-        ...state,
-        ...action.payload,
+        loginLoading: false,
+        loginDone: true,
+        loginResponse: { ...action.payload },
       };
     }
     case actionTypes.LOGIN_FAILURE: {
       return {
-        ...state,
+        loginLoading: false,
+        loginDone: false,
+        loginResponse: { ...action.payload },
       };
     }
     case actionTypes.LOGIN_CANCEL: {
       return {
-        ...state,
+        loginLoading: false,
+        loginDone: false,
+        loginResponse: DEFAULT_RESPONSE,
       };
     }
     default:

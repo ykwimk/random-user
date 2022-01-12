@@ -1,8 +1,11 @@
 import React, { useCallback, useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { loginAction } from '../redux/reducers/auth';
+import { useDispatch, useSelector } from 'react-redux';
+import { loginAction, LoginStateType } from '../redux/reducers/auth';
 export default function useLogin() {
   const dispatch = useDispatch();
+  const { loginLoading } = useSelector(
+    ({ auth }: { auth: LoginStateType }) => auth,
+  );
   const [id, setId] = useState<string>('karn.yong@mecallapi.com');
   const [password, setPassword] = useState<string>('mecallapi');
 
@@ -22,6 +25,7 @@ export default function useLogin() {
   return {
     id,
     password,
+    loginLoading,
     onChangeInput,
     onClickLoginButton,
   };

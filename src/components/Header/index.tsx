@@ -1,18 +1,12 @@
-import { useState } from 'react';
-import { useRouter } from 'next/router';
 import { FaList } from 'react-icons/fa';
 import { BiArrowBack } from 'react-icons/bi';
 import { HeaderWrapper } from './Header.style';
 import Modal from '../Modal';
 import Login from '../Login';
+import useHeader from '../../hooks/useHeader';
 
 const Header = () => {
-  const router = useRouter();
-  const [isModal, setIsModal] = useState<boolean>(false);
-
-  const onClickToggleLoginModal = () => {
-    setIsModal(!isModal);
-  };
+  const { router, isModal, onClickToggleLoginModal } = useHeader();
 
   return (
     <>

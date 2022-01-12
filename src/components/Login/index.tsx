@@ -1,8 +1,10 @@
 import useLogin from '../../hooks/useLogin';
+import Loading from '../Loading';
 import { LoginWrapper } from './Login.style';
 
 const Login = () => {
-  const { id, password, onChangeInput, onClickLoginButton } = useLogin();
+  const { id, password, loginLoading, onChangeInput, onClickLoginButton } =
+    useLogin();
 
   return (
     <LoginWrapper>
@@ -27,9 +29,10 @@ const Login = () => {
       <button
         type="button"
         className="login-button"
+        disabled={loginLoading}
         onClick={onClickLoginButton}
       >
-        로그인
+        {loginLoading ? <Loading /> : '로그인'}
       </button>
     </LoginWrapper>
   );

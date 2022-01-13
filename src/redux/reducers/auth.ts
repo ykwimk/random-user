@@ -1,6 +1,6 @@
 import { AxiosResponse } from 'axios';
 import { HYDRATE } from 'next-redux-wrapper';
-import { ActionType, createAsyncAction } from 'typesafe-actions';
+import { ActionType, createAsyncAction, createAction } from 'typesafe-actions';
 import { LoginResponseType, LoginRequestType } from './../../api/auth';
 import { DEFAULT_RESPONSE } from './../../constants/index';
 
@@ -9,6 +9,7 @@ export const actionTypes = {
   LOGIN_SUCCESS: 'auth/LOGIN_SUCCESS',
   LOGIN_FAILURE: 'auth/LOGIN_FAILURE',
   LOGIN_CANCEL: 'auth/LOGIN_CANCEL',
+  LOGOUT_USER: 'auth/LOGOUT_USER',
 };
 
 export const loginAction = createAsyncAction(
@@ -18,8 +19,11 @@ export const loginAction = createAsyncAction(
   actionTypes.LOGIN_CANCEL,
 )<LoginRequestType, LoginResponseType, LoginResponseType, any>();
 
+export const logoutAction = createAction(actionTypes.LOGOUT_USER)<any>();
+
 export const actions = {
   loginAction,
+  logoutAction,
 };
 
 export type LoginAction = ActionType<typeof actions>;
@@ -28,12 +32,14 @@ export interface LoginStateType {
   loginLoading: boolean;
   loginDone: boolean;
   loginResponse: AxiosResponse;
+  isLogin: boolean;
 }
 
 export const initialState: LoginStateType = {
   loginLoading: false,
   loginDone: false,
   loginResponse: DEFAULT_RESPONSE,
+  isLogin: false,
 };
 
 const AuthReducer = (state = initialState, action: any) => {
@@ -45,6 +51,7 @@ const AuthReducer = (state = initialState, action: any) => {
         loginLoading: true,
         loginDone: false,
         loginResponse: DEFAULT_RESPONSE,
+        isLogin: false,
       };
     }
     case actionTypes.LOGIN_SUCCESS: {
@@ -52,6 +59,7 @@ const AuthReducer = (state = initialState, action: any) => {
         loginLoading: false,
         loginDone: true,
         loginResponse: { ...action.payload },
+        isLogin: true,
       };
     }
     case actionTypes.LOGIN_FAILURE: {
@@ -59,6 +67,7 @@ const AuthReducer = (state = initialState, action: any) => {
         loginLoading: false,
         loginDone: false,
         loginResponse: { ...action.payload },
+        isLogin: false,
       };
     }
     case actionTypes.LOGIN_CANCEL: {
@@ -66,6 +75,15 @@ const AuthReducer = (state = initialState, action: any) => {
         loginLoading: false,
         loginDone: false,
         loginResponse: DEFAULT_RESPONSE,
+        isLogin: false,
+      };
+    }
+    case actionTypes.LOGOUT_USER: {
+      return {
+        loginLoading: false,
+        loginDone: false,
+        loginResponse: {},
+        isLogin: false,
       };
     }
     default:

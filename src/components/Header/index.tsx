@@ -6,7 +6,8 @@ import Login from '../Login';
 import useHeader from '../../hooks/useHeader';
 
 const Header = () => {
-  const { router, isModal, onClickToggleLoginModal } = useHeader();
+  const { router, isModal, isLogin, onClickToggleLoginModal, onClickLogout } =
+    useHeader();
 
   return (
     <>
@@ -21,13 +22,23 @@ const Header = () => {
               <BiArrowBack />
             </button>
           )}
-          <button
-            type="button"
-            className="login-button"
-            onClick={onClickToggleLoginModal}
-          >
-            로그인
-          </button>
+          {isLogin ? (
+            <button
+              type="button"
+              className="login-button"
+              onClick={onClickLogout}
+            >
+              로그아웃
+            </button>
+          ) : (
+            <button
+              type="button"
+              className="login-button"
+              onClick={onClickToggleLoginModal}
+            >
+              로그인
+            </button>
+          )}
           <button
             type="button"
             className="bookmark-button"

@@ -1,11 +1,12 @@
 import { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useRouter } from 'next/router';
-import { LoginStateType } from './../redux/reducers/auth';
+import { LoginStateType, logoutAction } from './../redux/reducers/auth';
 
 export default function useHeader() {
   const router = useRouter();
-  const { loginDone, loginResponse } = useSelector(
+  const dispatch = useDispatch();
+  const { loginDone, loginResponse, isLogin } = useSelector(
     ({ auth }: { auth: LoginStateType }) => auth,
   );
   const [isModal, setIsModal] = useState<boolean>(false);
@@ -14,9 +15,13 @@ export default function useHeader() {
     setIsModal(!isModal);
   };
 
+  const onClickLogout = () => {
+    dispatch(logoutAction({}));
+  };
+
   useEffect(() => {
-    const { status } = loginResponse.data;
-    if (loginDone) {
+    if (isLogin && loginDone) {
+      const { status } = loginResponse.data;
       switch (status) {
         case 'ok': {
           alert('로그인 성공!');
@@ -28,11 +33,13 @@ export default function useHeader() {
           break;
       }
     }
-  }, [loginDone, loginResponse]);
+  }, [loginDone, loginResponse, isLogin]);
 
   return {
     router,
     isModal,
+    isLogin,
     onClickToggleLoginModal,
+    onClickLogout,
   };
 }

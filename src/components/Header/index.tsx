@@ -22,30 +22,32 @@ const Header = () => {
               <BiArrowBack />
             </button>
           )}
-          {isLogin ? (
+          <div className="right-buttons">
+            {isLogin ? (
+              <button
+                type="button"
+                className="login-button"
+                onClick={onClickLogout}
+              >
+                로그아웃
+              </button>
+            ) : (
+              <button
+                type="button"
+                className="login-button"
+                onClick={onClickToggleLoginModal}
+              >
+                로그인
+              </button>
+            )}
             <button
               type="button"
-              className="login-button"
-              onClick={onClickLogout}
+              className="bookmark-button"
+              onClick={() => router.push('/bookmark')}
             >
-              로그아웃
+              <FaList />
             </button>
-          ) : (
-            <button
-              type="button"
-              className="login-button"
-              onClick={onClickToggleLoginModal}
-            >
-              로그인
-            </button>
-          )}
-          <button
-            type="button"
-            className="bookmark-button"
-            onClick={() => router.push('/bookmark')}
-          >
-            <FaList />
-          </button>
+          </div>
         </div>
       </HeaderWrapper>
       {isModal && (

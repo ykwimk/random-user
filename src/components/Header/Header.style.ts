@@ -10,6 +10,10 @@ export const HeaderWrapper = styled.div<{ router: NextRouter }>`
         ? 'justify-content: space-between;'
         : 'justify-content: flex-end;'}
     align-items: center;
+    .back-button {
+      font-size: 27px;
+      cursor: pointer;
+    }
     .login-button {
       position: relative;
       line-height: 40px;
@@ -22,6 +26,11 @@ export const HeaderWrapper = styled.div<{ router: NextRouter }>`
       height: 40px;
       font-size: 22px;
       cursor: pointer;
+    }
+    .right-buttons {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
     }
   }
 `;

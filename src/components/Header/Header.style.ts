@@ -20,6 +20,7 @@ export const HeaderWrapper = styled.div<{ router: NextRouter }>`
       font-size: 13px;
       cursor: pointer;
       margin-right: 10px;
+      font-weight: 500;
     }
     .bookmark-button {
       width: 40px;

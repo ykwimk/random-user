@@ -24,13 +24,22 @@ const Header = () => {
           )}
           <div className="right-buttons">
             {isLogin ? (
-              <button
-                type="button"
-                className="login-button"
-                onClick={onClickLogout}
-              >
-                로그아웃
-              </button>
+              <>
+                <button
+                  type="button"
+                  className="login-button"
+                  onClick={onClickLogout}
+                >
+                  로그아웃
+                </button>
+                <button
+                  type="button"
+                  className="bookmark-button"
+                  onClick={() => router.push('/bookmark')}
+                >
+                  <FaList />
+                </button>
+              </>
             ) : (
               <button
                 type="button"
@@ -40,13 +49,6 @@ const Header = () => {
                 로그인
               </button>
             )}
-            <button
-              type="button"
-              className="bookmark-button"
-              onClick={() => router.push('/bookmark')}
-            >
-              <FaList />
-            </button>
           </div>
         </div>
       </HeaderWrapper>

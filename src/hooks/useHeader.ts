@@ -24,7 +24,6 @@ export default function useHeader() {
       const { status } = loginResponse.data;
       switch (status) {
         case 'ok': {
-          alert('로그인 성공!');
           setIsModal(false);
           break;
         }

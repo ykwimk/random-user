@@ -5,6 +5,7 @@ import { loginAction, signUpAction } from '../reducers/auth';
 function* signUpSaga(action: any) {
   try {
     const { data } = yield call(signUp, action.payload);
+    console.log(data);
     yield put(signUpAction.success({ data }));
   } catch (e: any) {
     yield put(signUpAction.failure(e));

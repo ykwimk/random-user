@@ -40,7 +40,7 @@ export interface SignUpResponseDataType {
 
 export const signUp = (params: SignUpRequestType) => {
   return fetchApi({
-    url: '/sign-up',
+    url: 'http://localhost:3056/user',
     method: 'POST',
     data: params,
   });

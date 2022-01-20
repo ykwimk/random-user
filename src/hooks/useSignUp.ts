@@ -1,5 +1,6 @@
 import { useCallback, useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { signUpAction } from '../redux/reducers/auth';
 
 export default function useSignUp() {
   const dispatch = useDispatch();
@@ -15,10 +16,8 @@ export default function useSignUp() {
   };
 
   const onClickSignUp = useCallback(() => {
-    console.log(userId);
-    console.log(password);
-    console.log(nickName);
-  }, [userId, password, nickName]);
+    dispatch(signUpAction.request({ userId, password, nickName }));
+  }, [userId, password, nickName, dispatch]);
 
   return { onChangeInput, onClickSignUp };
 }

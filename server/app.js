@@ -1,7 +1,8 @@
 const express = require('express');
+const userRouter = require('./routes/user');
 const db = require('./models');
-
 const app = express();
+
 db.sequelize
   .sync()
   .then(() => {
@@ -9,9 +10,10 @@ db.sequelize
   })
   .catch(console.error);
 
-app.post('/login', (req, res) => {
-  res.send('hello express');
-});
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+app.use('/user', userRouter);
 
 app.listen(3056, () => {
   console.log('server start!');

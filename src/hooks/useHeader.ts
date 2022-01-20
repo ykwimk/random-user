@@ -10,9 +10,15 @@ export default function useHeader() {
     ({ auth }: { auth: LoginStateType }) => auth,
   );
   const [isModal, setIsModal] = useState<boolean>(false);
+  const [modalType, setModalType] = useState<string>('');
 
-  const onClickToggleLoginModal = () => {
-    setIsModal(!isModal);
+  const onClickSetModalType = (modalType: string) => {
+    setIsModal(true);
+    setModalType(modalType);
+  };
+
+  const onClickCloseModal = () => {
+    setIsModal(false);
   };
 
   const onClickLogout = () => {
@@ -38,7 +44,9 @@ export default function useHeader() {
     router,
     isModal,
     isLogin,
-    onClickToggleLoginModal,
+    modalType,
+    onClickSetModalType,
+    onClickCloseModal,
     onClickLogout,
   };
 }

@@ -1,13 +1,21 @@
 import { FaList } from 'react-icons/fa';
 import { BiArrowBack } from 'react-icons/bi';
 import { HeaderWrapper } from './Header.style';
+import useHeader from '../../hooks/useHeader';
 import Modal from '../Modal';
 import Login from '../Login';
-import useHeader from '../../hooks/useHeader';
+import SignUp from '../SignUp';
 
 const Header = () => {
-  const { router, isModal, isLogin, onClickToggleLoginModal, onClickLogout } =
-    useHeader();
+  const {
+    router,
+    isModal,
+    isLogin,
+    modalType,
+    onClickSetModalType,
+    onClickCloseModal,
+    onClickLogout,
+  } = useHeader();
 
   return (
     <>
@@ -41,20 +49,29 @@ const Header = () => {
                 </button>
               </>
             ) : (
-              <button
-                type="button"
-                className="login-button"
-                onClick={onClickToggleLoginModal}
-              >
-                로그인
-              </button>
+              <>
+                <button
+                  type="button"
+                  className="login-button"
+                  onClick={() => onClickSetModalType('LOGIN')}
+                >
+                  로그인
+                </button>
+                <button
+                  type="button"
+                  className="login-button"
+                  onClick={() => onClickSetModalType('SIGN_UP')}
+                >
+                  회원가입
+                </button>
+              </>
             )}
           </div>
         </div>
       </HeaderWrapper>
       {isModal && (
-        <Modal onClickClose={onClickToggleLoginModal}>
-          <Login />
+        <Modal onClickClose={onClickCloseModal}>
+          {modalType === 'LOGIN' ? <Login /> : <SignUp />}
         </Modal>
       )}
     </>

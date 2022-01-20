@@ -1,13 +1,13 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useRouter } from 'next/router';
-import { LoginStateType, logoutAction } from './../redux/reducers/auth';
+import { AuthStateType, logoutAction } from './../redux/reducers/auth';
 
 export default function useHeader() {
   const router = useRouter();
   const dispatch = useDispatch();
   const { loginDone, loginResponse, isLogin } = useSelector(
-    ({ auth }: { auth: LoginStateType }) => auth,
+    ({ auth }: { auth: AuthStateType }) => auth,
   );
   const [isModal, setIsModal] = useState<boolean>(false);
   const [modalType, setModalType] = useState<string>('');

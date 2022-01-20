@@ -1,11 +1,11 @@
 import React, { useCallback, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { loginAction, LoginStateType } from '../redux/reducers/auth';
+import { loginAction, AuthStateType } from '../redux/reducers/auth';
 
 export default function useLogin() {
   const dispatch = useDispatch();
   const { loginLoading } = useSelector(
-    ({ auth }: { auth: LoginStateType }) => auth,
+    ({ auth }: { auth: AuthStateType }) => auth,
   );
   const [id, setId] = useState<string>('karn.yong@mecallapi.com');
   const [password, setPassword] = useState<string>('mecallapi');

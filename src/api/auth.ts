@@ -22,3 +22,26 @@ export const login = (params: LoginRequestType) => {
     data: params,
   });
 };
+
+export interface SignUpRequestType {
+  userId: string;
+  password: string;
+  nickName: string;
+}
+
+export interface SignUpResponseType {
+  data: SignUpResponseDataType;
+}
+
+export interface SignUpResponseDataType {
+  status: string;
+  message: string;
+}
+
+export const signUp = (params: SignUpRequestType) => {
+  return fetchApi({
+    url: '/sign-up',
+    method: 'POST',
+    data: params,
+  });
+};

@@ -17,7 +17,7 @@ export interface LoginResponseDataType {
 
 export const login = (params: LoginRequestType) => {
   return fetchApi({
-    url: 'https://www.mecallapi.com/api/login',
+    url: '/user/login',
     method: 'POST',
     data: params,
   });
@@ -40,7 +40,7 @@ export interface SignUpResponseDataType {
 
 export const signUp = (params: SignUpRequestType) => {
   return fetchApi({
-    url: 'http://localhost:3056/user',
+    url: '/user',
     method: 'POST',
     data: params,
   });

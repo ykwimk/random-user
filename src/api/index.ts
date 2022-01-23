@@ -10,7 +10,7 @@ interface FetchApiType {
 
 const createAxiosInstance = () => {
   return axios.create({
-    baseURL: 'http://localhost:3056',
+    baseURL: 'https://randomuser.me',
   });
 };
 

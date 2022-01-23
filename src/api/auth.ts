@@ -17,7 +17,7 @@ export interface LoginResponseDataType {
 
 export const login = (params: LoginRequestType) => {
   return fetchApi({
-    url: '/user/login',
+    url: 'http://localhost:3056/user/login',
     method: 'POST',
     data: params,
   });
@@ -40,7 +40,7 @@ export interface SignUpResponseDataType {
 
 export const signUp = (params: SignUpRequestType) => {
   return fetchApi({
-    url: '/user',
+    url: 'http://localhost:3056/user',
     method: 'POST',
     data: params,
   });

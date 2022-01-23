@@ -92,7 +92,7 @@ const AuthReducer = (state = initialState, action: AuthAction) => {
         ...state,
         signUpLoading: false,
         signUpDone: false,
-        signUpResponse: { ...action.payload },
+        signUpResponse: { ...action.payload.response },
       };
     }
     case actionTypes.SIGN_UP_CANCEL: {

@@ -30,6 +30,7 @@ export interface SignUpRequestType {
 }
 
 export interface SignUpResponseType {
+  status: number;
   data: SignUpResponseDataType;
 }
 

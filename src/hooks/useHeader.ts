@@ -1,12 +1,16 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useRouter } from 'next/router';
-import { AuthStateType, logoutAction } from './../redux/reducers/auth';
+import {
+  AuthStateType,
+  logoutAction,
+  signUpAction,
+} from './../redux/reducers/auth';
 
 export default function useHeader() {
   const router = useRouter();
   const dispatch = useDispatch();
-  const { loginDone, loginResponse, isLogin } = useSelector(
+  const { loginDone, loginResponse, isLogin, signUpResponse } = useSelector(
     ({ auth }: { auth: AuthStateType }) => auth,
   );
   const [isModal, setIsModal] = useState<boolean>(false);
@@ -39,6 +43,26 @@ export default function useHeader() {
       }
     }
   }, [loginDone, loginResponse, isLogin]);
+
+  useEffect(() => {
+    const { status, data } = signUpResponse;
+    if (status !== -1) {
+      switch (status) {
+        case 201: {
+          alert(data);
+          setIsModal(false);
+          break;
+        }
+        case 403: {
+          alert(data);
+          break;
+        }
+        default:
+          break;
+      }
+    }
+    dispatch(signUpAction.cancel({}));
+  }, [signUpResponse, dispatch]);
 
   return {
     router,

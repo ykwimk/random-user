@@ -39,7 +39,7 @@ router.post('/', async (req, res, next) => {
       password: hashedPassword,
       nickName: req.body.nickName,
     });
-    res.status(201).send('ok');
+    res.status(201).send('회원가입을 성공하였습니다.');
   } catch (error) {
     console.error(error);
     next(error); // status(500)

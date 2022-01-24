@@ -4,8 +4,8 @@ import { loginAction, signUpAction } from '../reducers/auth';
 
 function* signUpSaga(action: any) {
   try {
-    const { data } = yield call(signUp, action.payload);
-    yield put(signUpAction.success({ data }));
+    const { data, status } = yield call(signUp, action.payload);
+    yield put(signUpAction.success({ data, status }));
   } catch (e: any) {
     yield put(signUpAction.failure(e));
   }

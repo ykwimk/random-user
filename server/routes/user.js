@@ -25,7 +25,7 @@ router.post('/login', (req, res, next) => {
 });
 
 // POST: /user/
-router.post('/', async (req, res, next) => {
+router.post('/sign-up', async (req, res, next) => {
   try {
     const exUser = await User.findOne({
       where: { userId: req.body.userId },

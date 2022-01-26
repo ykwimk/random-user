@@ -19,7 +19,7 @@ db.sequelize
   .catch(console.error);
 passportConfig();
 
-app.use(cors({ origin: true, credentials: false }));
+app.use(cors({ origin: true, credentials: true }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser(process.env.COOKIE_SECRET));

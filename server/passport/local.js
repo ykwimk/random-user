@@ -7,7 +7,7 @@ module.exports = () => {
   passport.use(
     new Strategy(
       {
-        usernameField: 'userId',
+        userIdField: 'userId',
         passwordField: 'password',
       },
       async (userId, password, done) => {

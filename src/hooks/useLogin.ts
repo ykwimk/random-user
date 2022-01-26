@@ -7,8 +7,8 @@ export default function useLogin() {
   const { loginLoading } = useSelector(
     ({ auth }: { auth: AuthStateType }) => auth,
   );
-  const [id, setId] = useState<string>('karn.yong@mecallapi.com');
-  const [password, setPassword] = useState<string>('mecallapi');
+  const [id, setId] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
 
   const onChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value, name } = e.target;

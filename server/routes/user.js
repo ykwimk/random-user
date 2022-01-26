@@ -4,8 +4,30 @@ const passport = require('passport');
 const { User } = require('../models');
 const router = express.Router();
 
+const { isLogin, isNotLogin } = require('./middlewares');
+
+// GET /user
+router.get('/', isLogin, async (req, res, next) => {
+  try {
+    if (req.user) {
+      const fullUserWithoutPassword = await User.findOne({
+        where: { id: req.user.id },
+        attributes: {
+          exclude: ['password'],
+        },
+      });
+      res.status(200).json(fullUserWithoutPassword);
+    } else {
+      res.status(200).json(null);
+    }
+  } catch (error) {
+    console.error(error);
+    next(error);
+  }
+});
+
 // POST: /user/login
-router.post('/login', (req, res, next) => {
+router.post('/login', isNotLogin, async (req, res, next) => {
   passport.authenticate('local', (error, user, info) => {
     if (error) {
       console.error(error);
@@ -19,13 +41,19 @@ router.post('/login', (req, res, next) => {
         console.error(loginError);
         return next(loginError);
       }
-      return res.status(200).json(user);
+      const fullUserWithoutPassword = await User.findOne({
+        where: { id: user.id },
+        attributes: {
+          exclude: ['password'],
+        },
+      });
+      return res.status(200).json(fullUserWithoutPassword);
     });
   })(req, res, next);
 });
 
 // POST: /user/
-router.post('/sign-up', async (req, res, next) => {
+router.post('/sign-up', isNotLogin, async (req, res, next) => {
   try {
     const exUser = await User.findOne({
       where: { userId: req.body.userId },
@@ -44,6 +72,13 @@ router.post('/sign-up', async (req, res, next) => {
     console.error(error);
     next(error); // status(500)
   }
+});
+
+// POST: /user/
+router.post('/logout', isLogin, (req, res) => {
+  req.logout();
+  req.session.destroy();
+  res.send('로그아웃이 완료되었습니다.');
 });
 
 module.exports = router;

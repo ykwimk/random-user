@@ -10,7 +10,7 @@ import {
 export default function useHeader() {
   const router = useRouter();
   const dispatch = useDispatch();
-  const { loginDone, loginResponse, isLogin, signUpResponse } = useSelector(
+  const { loginResponse, isLogin, signUpResponse } = useSelector(
     ({ auth }: { auth: AuthStateType }) => auth,
   );
   const [isModal, setIsModal] = useState<boolean>(false);
@@ -26,23 +26,23 @@ export default function useHeader() {
   };
 
   const onClickLogout = () => {
-    dispatch(logoutAction({}));
+    dispatch(logoutAction.request({}));
   };
 
   useEffect(() => {
-    if (isLogin && loginDone) {
-      const { status } = loginResponse.data;
+    const { status } = loginResponse;
+    if (status !== -1) {
       switch (status) {
-        case 'ok': {
+        case 200: {
+          alert('로그인 성공!');
           setIsModal(false);
           break;
         }
         default:
-          alert('로그인 실패');
           break;
       }
     }
-  }, [loginDone, loginResponse, isLogin]);
+  }, [loginResponse]);
 
   useEffect(() => {
     const { status, data } = signUpResponse;

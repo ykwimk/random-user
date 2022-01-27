@@ -34,7 +34,6 @@ export default function useHeader() {
     if (status !== -1) {
       switch (status) {
         case 200: {
-          alert('로그인 성공!');
           setIsModal(false);
           break;
         }

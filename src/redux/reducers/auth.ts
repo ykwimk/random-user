@@ -1,6 +1,5 @@
-import { AxiosResponse } from 'axios';
 import { HYDRATE } from 'next-redux-wrapper';
-import { ActionType, createAsyncAction, createAction } from 'typesafe-actions';
+import { ActionType, createAsyncAction } from 'typesafe-actions';
 import {
   LoginResponseType,
   LoginRequestType,
@@ -8,6 +7,7 @@ import {
   SignUpResponseType,
   LogoutResponseType,
 } from './../../api/auth';
+import { DefaultResponseType } from './../../types/index';
 import { DEFAULT_RESPONSE } from './../../constants/index';
 
 export const actionTypes = {
@@ -72,16 +72,16 @@ export type AuthAction = ActionType<typeof actions>;
 export interface AuthStateType {
   signUpLoading: boolean;
   signUpDone: boolean;
-  signUpResponse: AxiosResponse;
+  signUpResponse: DefaultResponseType;
 
   loginLoading: boolean;
   loginDone: boolean;
-  loginResponse: AxiosResponse;
+  loginResponse: DefaultResponseType;
   isLogin: boolean;
 
   logoutLoading: boolean;
   logoutDone: boolean;
-  logoutResponse: AxiosResponse;
+  logoutResponse: DefaultResponseType;
 
   loadUserLoading: boolean;
   loadUserDone: boolean;
@@ -215,6 +215,7 @@ const AuthReducer = (state = initialState, action: AuthAction) => {
         ...state,
         loadUserLoading: true,
         loadUserDone: false,
+        loginResponse: DEFAULT_RESPONSE,
       };
     }
     case actionTypes.LOAD_USER_SUCCESS: {

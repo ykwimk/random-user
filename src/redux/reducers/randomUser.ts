@@ -1,7 +1,7 @@
 import { HYDRATE } from 'next-redux-wrapper';
-import { AxiosResponse } from 'axios';
 import _ from 'lodash';
 import { ActionType, createAction, createAsyncAction } from 'typesafe-actions';
+import { DefaultResponseType } from './../../types/index';
 import { DEFAULT_RESPONSE } from './../../constants/index';
 import {
   GetRandomUserRequestType,
@@ -55,7 +55,7 @@ export type RandomUserAction = ActionType<typeof actions>;
 export interface RandomUserStateType {
   getRandomUserLoading: boolean;
   getRandomUserDone: boolean;
-  getRandomUserResponse: AxiosResponse;
+  getRandomUserResponse: DefaultResponseType;
   bookmarkList: ResultsType[];
   searchList: ResultsType[];
 }

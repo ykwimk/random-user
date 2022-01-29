@@ -2,12 +2,12 @@ const express = require('express');
 const bcrypt = require('bcrypt');
 const passport = require('passport');
 const { User } = require('../models');
-const router = express.Router();
-
 const { isLogin, isNotLogin } = require('./middlewares');
 
+const router = express.Router();
+
 // GET /user
-router.get('/', isLogin, async (req, res, next) => {
+router.get('/', async (req, res, next) => {
   try {
     if (req.user) {
       const fullUserWithoutPassword = await User.findOne({

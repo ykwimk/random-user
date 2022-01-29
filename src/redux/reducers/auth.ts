@@ -107,8 +107,9 @@ export const initialState: AuthStateType = {
 
 const AuthReducer = (state = initialState, action: AuthAction) => {
   switch (action.type) {
-    case HYDRATE:
+    case HYDRATE: {
       return { ...state, ...action.payload };
+    }
     case actionTypes.SIGN_UP_REQUEST: {
       return {
         ...state,

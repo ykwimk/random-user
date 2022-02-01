@@ -1,16 +1,20 @@
-import { applyMiddleware, createStore } from 'redux';
-import createSagaMiddleware from 'redux-saga';
-import { createWrapper } from 'next-redux-wrapper';
+import { applyMiddleware, createStore, Store } from 'redux';
+import createSagaMiddleware, { Task } from 'redux-saga';
+import { Context, createWrapper } from 'next-redux-wrapper';
 import { composeWithDevTools } from 'redux-devtools-extension';
-import rootReducer from '../reducers';
+import rootReducer, { RootState } from '../reducers';
 import rootSaga from '../sagas';
 
-const configureStore = () => {
+export interface SagaStore extends Store {
+  sagaTask?: Task;
+}
+
+const configureStore = (context: Context) => {
   const sagaMiddleWare = createSagaMiddleware();
   const middleWares = [sagaMiddleWare];
   const enhancer = composeWithDevTools(applyMiddleware(...middleWares));
   const store = createStore(rootReducer, enhancer) as any;
-  store.sagaTask = sagaMiddleWare.run(rootSaga);
+  (store as SagaStore).sagaTask = sagaMiddleWare.run(rootSaga);
   return store;
 };
 

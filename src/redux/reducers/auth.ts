@@ -111,9 +111,9 @@ export const initialState: AuthStateType = {
 const AuthReducer = (state = initialState, action: AuthAction) =>
   produce(state, (draft) => {
     switch (action.type) {
-      case HYDRATE: {
-        return { ...state, ...action.payload };
-      }
+      case HYDRATE:
+        draft.isLogin = action.payload.auth.isLogin;
+        break;
       case actionTypes.SIGN_UP_REQUEST:
         draft.signUpLoading = true;
         draft.signUpDone = false;

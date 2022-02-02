@@ -2,7 +2,7 @@ import { applyMiddleware, createStore, Store } from 'redux';
 import createSagaMiddleware, { Task } from 'redux-saga';
 import { Context, createWrapper } from 'next-redux-wrapper';
 import { composeWithDevTools } from 'redux-devtools-extension';
-import rootReducer, { RootState } from '../reducers';
+import rootReducer from '../reducers';
 import rootSaga from '../sagas';
 
 export interface SagaStore extends Store {

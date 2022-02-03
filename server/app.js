@@ -25,8 +25,8 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser(process.env.COOKIE_SECRET));
 app.use(
   session({
-    saveUninitialized: false,
     resave: false,
+    saveUninitialized: false,
     secret: process.env.COOKIE_SECRET,
   }),
 );

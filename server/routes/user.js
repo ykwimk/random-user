@@ -75,7 +75,7 @@ router.post('/sign-up', isNotLogin, async (req, res, next) => {
 });
 
 // POST: /user/
-router.post('/logout', isLogin, (req, res) => {
+router.post('/logout', (req, res) => {
   req.logout();
   req.session.destroy();
   res.send('로그아웃이 완료되었습니다.');

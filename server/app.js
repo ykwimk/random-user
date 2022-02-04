@@ -6,10 +6,11 @@ const cookieParser = require('cookie-parser');
 const dotenv = require('dotenv');
 const userRouter = require('./routes/user');
 const db = require('./models');
-const app = express();
 const passportConfig = require('./passport');
 
 dotenv.config();
+
+const app = express();
 
 db.sequelize
   .sync()
@@ -17,6 +18,7 @@ db.sequelize
     console.log('디비 연결 성공');
   })
   .catch(console.error);
+
 passportConfig();
 
 app.use(cors({ origin: true, credentials: true }));
@@ -25,9 +27,9 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser(process.env.COOKIE_SECRET));
 app.use(
   session({
+    secret: process.env.COOKIE_SECRET,
     resave: false,
     saveUninitialized: false,
-    secret: process.env.COOKIE_SECRET,
   }),
 );
 app.use(passport.initialize());

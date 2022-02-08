@@ -4,9 +4,11 @@
   box-sizing: border-box;
 }
 html,
-body {
+body,
+#__next {
   padding: 0;
   margin: 0;
+  height: 100%;
 }
 a {
   color: inherit;

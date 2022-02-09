@@ -1,5 +1,7 @@
+import React from 'react';
 import { BsBookmarkPlus, BsBookmarkPlusFill } from 'react-icons/bs';
 import { PictureType } from '../../api/randomUser';
+import { ListItemWrapper } from './ListItem.style';
 
 interface ListItemPropsType {
   phone: string;
@@ -8,6 +10,7 @@ interface ListItemPropsType {
   cell: string;
   email: string;
   isBookmark?: boolean;
+  style?: React.CSSProperties;
   onClickListItem: (phone: string, isBookmark?: boolean) => void;
 }
 
@@ -21,7 +24,7 @@ const ListItem = ({
   onClickListItem,
 }: ListItemPropsType) => {
   return (
-    <li>
+    <ListItemWrapper>
       <div
         className="list-item"
         onClick={() => onClickListItem(phone, isBookmark)}
@@ -40,7 +43,7 @@ const ListItem = ({
           </div>
         </div>
       </div>
-    </li>
+    </ListItemWrapper>
   );
 };
 

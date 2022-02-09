@@ -48,22 +48,22 @@ export default function useHome() {
     dispatch(getRandomUsersAction.request({ results: 10, page }));
   }, [dispatch, page]);
 
-  useEffect(() => {
-    const options = {
-      rootMargin: '0px',
-      threshold: 1.0,
-    };
-    let observer: IntersectionObserver;
-    if (sentinel.current && response.data.results && _.isEmpty(searchList)) {
-      observer = new IntersectionObserver(([entries]) => {
-        if (!isLoading && entries.isIntersecting) {
-          setPage(page + 1);
-        }
-      }, options);
-      observer.observe(sentinel.current);
-    }
-    return () => observer && observer.disconnect();
-  }, [sentinel, page, isLoading, response.data.results, searchList]);
+  // useEffect(() => {
+  //   const options = {
+  //     rootMargin: '0px',
+  //     threshold: 1.0,
+  //   };
+  //   let observer: IntersectionObserver;
+  //   if (sentinel.current && response.data.results && _.isEmpty(searchList)) {
+  //     observer = new IntersectionObserver(([entries]) => {
+  //       if (!isLoading && entries.isIntersecting) {
+  //         setPage(page + 1);
+  //       }
+  //     }, options);
+  //     observer.observe(sentinel.current);
+  //   }
+  //   return () => observer && observer.disconnect();
+  // }, [sentinel, page, isLoading, response.data.results, searchList]);
 
   useEffect(() => {
     return () => {

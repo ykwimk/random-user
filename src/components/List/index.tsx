@@ -9,13 +9,21 @@ import {
 import { ResultsType } from '../../api/randomUser';
 import { ListWrapper } from './List.style';
 import ListItem from '../ListItem';
+import Loading from '../Loading';
 
 interface ListPropsType {
+  isLoading: boolean;
   list: ResultsType[];
+  sentinel?: any;
   onClickListItem: (phone: string, isBookmark?: boolean) => void;
 }
 
-const List = ({ list, onClickListItem }: ListPropsType) => {
+const List = ({
+  isLoading,
+  list,
+  sentinel,
+  onClickListItem,
+}: ListPropsType) => {
   const listRef = useRef<WindowList | undefined>(undefined);
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -58,31 +66,34 @@ const List = ({ list, onClickListItem }: ListPropsType) => {
   if (!list) return null;
 
   return (
-    <ListWrapper>
-      <WindowScroller>
-        {({ height, scrollTop }) => (
-          <AutoSizer disableHeight>
-            {({ width }) => {
-              return (
-                <WindowList
-                  ref={(ref) => {
-                    listRef.current = ref as WindowList;
-                  }}
-                  autoHeight
-                  width={width}
-                  height={height}
-                  scrollTop={scrollTop}
-                  rowCount={list && list.length}
-                  rowHeight={cache.rowHeight}
-                  deferredMeasurementCache={cache}
-                  rowRenderer={rowRenderer}
-                />
-              );
-            }}
-          </AutoSizer>
-        )}
-      </WindowScroller>
-    </ListWrapper>
+    <>
+      <ListWrapper>
+        <WindowScroller>
+          {({ height, scrollTop }) => (
+            <AutoSizer disableHeight>
+              {({ width }) => {
+                return (
+                  <WindowList
+                    ref={(ref) => {
+                      listRef.current = ref as WindowList;
+                    }}
+                    autoHeight
+                    width={width}
+                    height={height}
+                    scrollTop={scrollTop}
+                    rowCount={list && list.length}
+                    rowHeight={cache.rowHeight}
+                    deferredMeasurementCache={cache}
+                    rowRenderer={rowRenderer}
+                  />
+                );
+              }}
+            </AutoSizer>
+          )}
+        </WindowScroller>
+      </ListWrapper>
+      <div ref={sentinel as any}>{isLoading && <Loading />}</div>
+    </>
   );
 };
 

@@ -22,10 +22,11 @@ const Home = () => {
         onClickSearchButton={onClickSearchButton}
       />
       <List
+        isLoading={isLoading}
+        sentinel={sentinel}
         list={searchList.length > 0 ? searchList : results}
         onClickListItem={onClickListItem}
       />
-      <div ref={sentinel as any}>{isLoading && <Loading />}</div>
     </HomeWrapper>
   );
 };

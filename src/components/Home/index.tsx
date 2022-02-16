@@ -2,7 +2,6 @@ import useHome from '../../hooks/useHome';
 import { HomeWrapper } from './Home.style';
 import Search from '../Search';
 import List from '../List';
-import Loading from '../Loading';
 
 const Home = () => {
   const {

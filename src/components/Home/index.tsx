@@ -9,6 +9,7 @@ const Home = () => {
     isLoading,
     results,
     searchList,
+    setSentinel,
     onChangeSearchInput,
     onClickSearchButton,
     onClickListItem,
@@ -23,6 +24,7 @@ const Home = () => {
       <List
         isLoading={isLoading}
         sentinel={sentinel}
+        setSentinel={setSentinel}
         list={searchList.length > 0 ? searchList : results}
         onClickListItem={onClickListItem}
       />

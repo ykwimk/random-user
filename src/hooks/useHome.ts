@@ -1,5 +1,4 @@
-import { loadUserAction } from './../redux/reducers/auth';
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import _, { debounce } from 'lodash';
 import {
@@ -11,7 +10,7 @@ import {
 } from './../redux/reducers/randomUser';
 
 export default function useHome() {
-  const sentinel = useRef<HTMLDivElement>();
+  const [sentinel, setSentinel] = useState<HTMLDivElement>();
   const dispatch = useDispatch();
   const {
     getRandomUserLoading: isLoading,
@@ -24,6 +23,10 @@ export default function useHome() {
   );
   const [searchValue, setSearchValue] = useState<string>('');
   const [page, setPage] = useState<number>(1);
+
+  const resultsList = useMemo(() => {
+    return response.data.results;
+  }, [response]);
 
   const onChangeSearchInput = (value: string) => {
     setSearchValue(value);
@@ -45,25 +48,29 @@ export default function useHome() {
   };
 
   useEffect(() => {
-    dispatch(getRandomUsersAction.request({ results: 10, page }));
-  }, [dispatch, page]);
+    const options = {
+      rootMargin: '0px',
+      threshold: 1.0,
+    };
+    let observer: IntersectionObserver;
+    console.log(sentinel);
+    if (sentinel && !_.isEmpty(resultsList)) {
+      observer = new IntersectionObserver(([entries]) => {
+        if (!isLoading && entries.isIntersecting) {
+          // setPage(page + 1);
+          console.log('bottom');
+          console.log(entries);
+          observer.unobserve(sentinel);
+        }
+      }, options);
+      observer.observe(sentinel);
+    }
+    return () => observer && observer.disconnect();
+  }, [sentinel, isLoading, resultsList, dispatch]);
 
-  // useEffect(() => {
-  //   const options = {
-  //     rootMargin: '0px',
-  //     threshold: 1.0,
-  //   };
-  //   let observer: IntersectionObserver;
-  //   if (sentinel.current && response.data.results && _.isEmpty(searchList)) {
-  //     observer = new IntersectionObserver(([entries]) => {
-  //       if (!isLoading && entries.isIntersecting) {
-  //         setPage(page + 1);
-  //       }
-  //     }, options);
-  //     observer.observe(sentinel.current);
-  //   }
-  //   return () => observer && observer.disconnect();
-  // }, [sentinel, page, isLoading, response.data.results, searchList]);
+  useEffect(() => {
+    dispatch(getRandomUsersAction.request({ results: 10, page }));
+  }, [dispatch]);
 
   useEffect(() => {
     return () => {
@@ -75,8 +82,9 @@ export default function useHome() {
     sentinel,
     isLoading,
     done,
-    results: response.data.results,
+    results: resultsList,
     searchList,
+    setSentinel,
     onChangeSearchInput,
     onClickSearchButton,
     onClickListItem,

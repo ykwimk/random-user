@@ -6,6 +6,7 @@ import {
   CellMeasurerCache,
   CellMeasurer,
 } from 'react-virtualized';
+import { Portal } from 'react-portal';
 import { ResultsType } from '../../api/randomUser';
 import { ListWrapper } from './List.style';
 import ListItem from '../ListItem';
@@ -14,7 +15,8 @@ import Loading from '../Loading';
 interface ListPropsType {
   isLoading: boolean;
   list: ResultsType[];
-  sentinel?: any;
+  sentinel: any;
+  setSentinel: (el: any) => void;
   onClickListItem: (phone: string, isBookmark?: boolean) => void;
 }
 
@@ -22,6 +24,7 @@ const List = ({
   isLoading,
   list,
   sentinel,
+  setSentinel,
   onClickListItem,
 }: ListPropsType) => {
   const listRef = useRef<WindowList | undefined>(undefined);
@@ -29,7 +32,7 @@ const List = ({
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const cache = new CellMeasurerCache({
     fixedWidth: true,
-    defaultHeight: 20,
+    defaultHeight: 84,
   });
 
   const rowRenderer = useCallback(
@@ -82,8 +85,8 @@ const List = ({
                     height={height}
                     scrollTop={scrollTop}
                     rowCount={list && list.length}
-                    rowHeight={cache.rowHeight}
-                    deferredMeasurementCache={cache}
+                    rowHeight={84}
+                    deferredMeasurementCache={undefined}
                     rowRenderer={rowRenderer}
                   />
                 );
@@ -92,7 +95,15 @@ const List = ({
           )}
         </WindowScroller>
       </ListWrapper>
-      <div ref={sentinel as any}>{isLoading && <Loading />}</div>
+      {typeof window !== 'undefined' && (
+        <Portal node={document && document.getElementById('sentinel-portal')}>
+          <div
+            ref={(el) => {
+              setSentinel(el as HTMLElement);
+            }}
+          ></div>
+        </Portal>
+      )}
     </>
   );
 };
